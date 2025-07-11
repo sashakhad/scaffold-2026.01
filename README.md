@@ -1,6 +1,6 @@
 # Modern Full-Stack Scaffold
 
-A clean, modern scaffold for full-stack web applications built with Next.js 15, React 19, TypeScript, Prisma, and Tailwind CSS.
+A clean, modern scaffold for full-stack web applications built with Next.js 15, React 19, TypeScript, Prisma, Tailwind CSS, and shadcn/ui.
 
 ## Features
 
@@ -9,6 +9,8 @@ A clean, modern scaffold for full-stack web applications built with Next.js 15, 
 - **TypeScript** with strict configuration
 - **Prisma** with PostgreSQL for database management
 - **Tailwind CSS v4** for styling
+- **shadcn/ui** with Radix UI components
+- **React Hook Form** with Zod validation
 - **ESLint** with Next.js and TypeScript rules
 - **Prettier** for code formatting
 
@@ -59,7 +61,14 @@ src/
 │   ├── page.tsx        # Home page
 │   └── globals.css     # Global styles
 ├── components/         # Reusable components
+│   ├── ui/            # shadcn/ui components
+│   │   ├── button.tsx
+│   │   ├── form.tsx
+│   │   ├── input.tsx
+│   │   └── label.tsx
+│   └── ExampleForm.tsx # Example form component
 ├── lib/               # Utility functions
+│   └── utils.ts       # shadcn/ui utilities
 └── types/             # TypeScript type definitions
 ```
 
@@ -71,18 +80,29 @@ The scaffold includes a basic User model in Prisma. You can extend it by:
 2. Running `npm run db:push` to apply changes
 3. Or `npm run db:migrate` for versioned migrations
 
-## Styling
+## Styling & UI
 
-Uses Tailwind CSS v4 with:
+Uses Tailwind CSS v4 with shadcn/ui components:
 - Geist fonts (sans and mono)
 - Dark mode support
 - Responsive design utilities
+- Radix UI primitives for accessibility
+- Pre-built components: Button, Input, Label, Form
+
+## Forms & Validation
+
+- **React Hook Form** for form state management
+- **Zod** for schema validation
+- **@hookform/resolvers** for integration
+- Type-safe form handling with TypeScript
+- Example form component included
 
 ## Type Safety
 
 - Strict TypeScript configuration
 - Path aliases configured (`@/` points to `src/`)
 - ESLint rules for TypeScript best practices
+- Zod schemas for runtime type validation
 
 ## Development Workflow
 
@@ -90,5 +110,17 @@ Uses Tailwind CSS v4 with:
 2. ESLint catches issues automatically
 3. Prettier formats code consistently
 4. Prisma provides type-safe database access
+5. Use shadcn/ui components for consistent UI
+6. React Hook Form + Zod for type-safe forms
+
+## Adding More Components
+
+To add more shadcn/ui components:
+
+```bash
+npx shadcn@latest add [component-name]
+```
+
+Available components: https://ui.shadcn.com/docs/components
 
 This scaffold is designed to be minimal but complete, giving you a solid foundation to build upon without unnecessary complexity.

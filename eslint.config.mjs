@@ -16,7 +16,6 @@ const eslintConfig = [
     rules: {
       "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
       "@typescript-eslint/no-explicit-any": "error",
-      "@typescript-eslint/prefer-function-declaration": "error",
       "prefer-const": "error",
       "no-var": "error",
       "object-shorthand": "error",
@@ -30,13 +29,6 @@ const eslintConfig = [
       "no-implied-eval": "error",
       "no-new-func": "error",
       "no-script-url": "error"
-    }
-  },
-  {
-    files: ["cypress/**/*.{js,ts}"],
-    ...compat.extends("plugin:cypress/recommended"),
-    rules: {
-      "@typescript-eslint/no-namespace": "off"
     }
   }
 ];

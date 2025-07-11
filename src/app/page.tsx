@@ -1,103 +1,49 @@
-import Image from "next/image";
+import { ExampleForm } from "@/components/ExampleForm";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen p-8 font-[family-name:var(--font-geist-sans)]">
+      <div className="max-w-4xl mx-auto space-y-12">
+        {/* Header Section */}
+        <header className="text-center space-y-4">
+          <h1 className="text-4xl font-bold">Modern Full-Stack Scaffold</h1>
+          <p className="text-xl text-muted-foreground">
+            Next.js 15 + React 19 + TypeScript + Prisma + Tailwind CSS + shadcn/ui
+          </p>
+        </header>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        {/* Features Grid */}
+        <section className="grid md:grid-cols-2 gap-8">
+          <div className="space-y-4">
+            <h2 className="text-2xl font-semibold">Built with Modern Tech</h2>
+            <ul className="space-y-2 text-muted-foreground">
+              <li>• Next.js 15 with App Router and Turbopack</li>
+              <li>• React 19 with latest features</li>
+              <li>• TypeScript with strict configuration</li>
+              <li>• Prisma with PostgreSQL</li>
+              <li>• Tailwind CSS v4 for styling</li>
+              <li>• shadcn/ui with Radix components</li>
+              <li>• React Hook Form with Zod validation</li>
+            </ul>
+          </div>
+
+          <div className="space-y-4">
+            <h2 className="text-2xl font-semibold">Development Tools</h2>
+            <ul className="space-y-2 text-muted-foreground">
+              <li>• ESLint with Next.js and TypeScript rules</li>
+              <li>• Prettier for code formatting</li>
+              <li>• Type-safe database access</li>
+              <li>• Hot reload with Turbopack</li>
+              <li>• Prisma Studio for database management</li>
+            </ul>
+          </div>
+        </section>
+
+        {/* Example Form Section */}
+        <section className="flex justify-center">
+          <ExampleForm />
+        </section>
+      </div>
     </div>
   );
 }
