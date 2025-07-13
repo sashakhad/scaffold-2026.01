@@ -1,3 +1,4 @@
+// MCP PR test: this is a test comment to verify PR creation
 'use client';
 
 import { useForm } from 'react-hook-form';
