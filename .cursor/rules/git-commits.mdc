@@ -1,3 +1,7 @@
+---
+title: Git Commit Rules
+---
+
 # Git Commit Rules
 
 ## Commit Message Format
@@ -128,16 +132,6 @@ Before committing, ask yourself:
 - [ ] Does this commit do one thing well?
 - [ ] Is the commit message clear and descriptive?
 - [ ] Are all tests passing?
-- [ ] Is the code properly formatted?
-- [ ] Are there any unintended changes included?
-- [ ] Does this commit make sense on its own?
-- [ ] Would this commit be easy to revert if needed?
-
-- [ ] Is the code properly formatted?
-- [ ] Are there any unintended changes included?
-- [ ] Does this commit make sense on its own?
-- [ ] Would this commit be easy to revert if needed?
-
 - [ ] Is the code properly formatted?
 - [ ] Are there any unintended changes included?
 - [ ] Does this commit make sense on its own?
