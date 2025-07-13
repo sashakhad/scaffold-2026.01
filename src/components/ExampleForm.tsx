@@ -28,7 +28,6 @@ const formSchema = z
 type FormData = z.infer<typeof formSchema>;
 
 export function ExampleForm() {
-  // Form configuration with React Hook Form and Zod validation
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
