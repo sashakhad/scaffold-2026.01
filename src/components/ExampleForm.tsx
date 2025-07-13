@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   Form,
   FormControl,
@@ -12,17 +12,17 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from '@/components/ui/form';
 
 const formSchema = z
   .object({
-    email: z.string().email("Please enter a valid email address"),
-    password: z.string().min(8, "Password must be at least 8 characters"),
+    email: z.string().email('Please enter a valid email address'),
+    password: z.string().min(8, 'Password must be at least 8 characters'),
     confirmPassword: z.string(),
   })
-  .refine((data) => data.password === data.confirmPassword, {
+  .refine(data => data.password === data.confirmPassword, {
     message: "Passwords don't match",
-    path: ["confirmPassword"],
+    path: ['confirmPassword'],
   });
 
 type FormData = z.infer<typeof formSchema>;
@@ -31,9 +31,9 @@ export function ExampleForm() {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
-      password: "",
-      confirmPassword: "",
+      email: '',
+      password: '',
+      confirmPassword: '',
     },
   });
 
@@ -73,11 +73,7 @@ export function ExampleForm() {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input
-                    type="password"
-                    placeholder="Enter your password"
-                    {...field}
-                  />
+                  <Input type="password" placeholder="Enter your password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -91,11 +87,7 @@ export function ExampleForm() {
               <FormItem>
                 <FormLabel>Confirm Password</FormLabel>
                 <FormControl>
-                  <Input
-                    type="password"
-                    placeholder="Confirm your password"
-                    {...field}
-                  />
+                  <Input type="password" placeholder="Confirm your password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
