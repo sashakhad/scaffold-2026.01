@@ -35,3 +35,9 @@ alwaysApply: false
 
 - Consistent rule files improve discoverability and automation.
 - Clear structure helps both humans and tools understand and enforce project standards.
+
+---
+
+## Further Reading
+
+For more details and best practices, see the official Cursor documentation: [https://docs.cursor.com/context/rules](https://docs.cursor.com/context/rules)
