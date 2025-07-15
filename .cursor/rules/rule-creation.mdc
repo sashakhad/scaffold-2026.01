@@ -37,8 +37,3 @@ alwaysApply: false
 
 - Consistent rule files improve discoverability and automation.
 - Clear structure helps both humans and tools understand and enforce project standards.
-  description:
-  globs:
-  alwaysApply: false
-
----
