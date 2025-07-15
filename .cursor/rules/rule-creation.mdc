@@ -1,28 +1,24 @@
 # Rule Creation Guidelines
 
-## Required Structure for New Rules
+Every rule file **must** start with a YAML frontmatter block containing:
 
-- Every rule file **must** start with a YAML frontmatter block containing:
-  - `description`: A short summary of the rule's purpose.
-  - `globs`: File patterns (as a YAML list or object) indicating where the rule applies.
-  - `alwaysApply`: Whether the rule should always be considered (true/false).
-- The YAML frontmatter must be at the very top of the file, before any Markdown content.
-- The main content should use Markdown, with clear sections and examples as appropriate.
-- Use headings for clarity (e.g., `#`, `##`, `###`).
-- Include rationale and migration/usage notes if relevant.
+- `description`: A short summary of the rule's purpose.
+- `globs`: A comma-separated list of file patterns indicating where the rule applies.
+- `alwaysApply`: Whether the rule should always be considered (true/false).
+
+The YAML frontmatter must be at the very top of the file, before any Markdown content.
+
+The main content should use Markdown, with clear sections and examples as appropriate. Use headings for clarity (e.g., `#`, `##`, `###`).
 
 ## Example Rule File
 
 ```
 ---
 description: Example rule for demonstration.
-globs:
-  - 'src/**/*'
+globs: src/**/*
 alwaysApply: false
 ---
-
 # Example Rule
-
 - Follow this pattern for all new rules.
 ```
 
