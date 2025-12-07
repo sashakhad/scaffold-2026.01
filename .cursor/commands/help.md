@@ -25,9 +25,15 @@ Display this information in a friendly, clear way:
 
 ### 🆕 `/new-project`
 **Creates a fresh copy** of this template for a new project.
-- Asks you for a project name
+- Prompts you to name your new project
 - Copies everything to a new folder
 - Guides you to open it in Cursor
+
+### 🔄 `/update`
+**Gets the latest scaffold updates** from the main repository.
+- Pulls new features and fixes
+- Warns you if you have uncommitted changes
+- Only works in the scaffold template (not derived projects)
 
 ### ❓ `/help`
 **You're here!** Shows this list of commands.
@@ -43,8 +49,13 @@ Display this information in a friendly, clear way:
 
 **Starting a new project?**
 1. Type `/new-project`
-2. Follow the instructions to open it in Cursor
-3. Run `/setup` in the new project
+2. Give your project a name when asked
+3. Follow the instructions to open it in Cursor
+4. Run `/setup` in the new project
+
+**Want the latest scaffold improvements?**
+1. Type `/update` to pull the latest changes
+2. Run `/setup` if dependencies changed
 
 **Need help anytime?**
 - Type `/help` to see this guide
@@ -55,4 +66,3 @@ Display this information in a friendly, clear way:
 ## Tone
 
 Be warm and welcoming. This is likely a non-technical user who needs clear guidance. Make them feel supported and confident they can do this!
-
