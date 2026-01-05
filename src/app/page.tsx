@@ -8,7 +8,7 @@ export default function Home() {
         <header className='space-y-4 text-center'>
           <h1 className='text-4xl font-bold'>Modern Full-Stack Scaffold</h1>
           <p className='text-muted-foreground text-xl'>
-            Next.js 15.5.5 + React 19.2.0 + TypeScript 5.9.3 + Prisma 6.17.1 + Tailwind CSS 4.1.14 + shadcn/ui
+            Next.js 16.1.1 + React 19.2.3 + TypeScript 5.9.3 + Prisma 7.2.0 + Tailwind CSS 4.1.18 + shadcn/ui
           </p>
         </header>
 
@@ -17,11 +17,11 @@ export default function Home() {
           <div className='space-y-4'>
             <h2 className='text-2xl font-semibold'>Built with Modern Tech</h2>
             <ul className='text-muted-foreground space-y-2'>
-              <li>• Next.js 15.5.5 with App Router and Turbopack</li>
-              <li>• React 19.2.0 with latest features</li>
+              <li>• Next.js 16.1.1 with App Router and Turbopack</li>
+              <li>• React 19.2.3 with latest features</li>
               <li>• TypeScript 5.9.3 with strict configuration</li>
-              <li>• Prisma 6.17.1 with PostgreSQL</li>
-              <li>• Tailwind CSS 4.1.14 for styling</li>
+              <li>• Prisma 7.2.0 with PostgreSQL</li>
+              <li>• Tailwind CSS 4.1.18 for styling</li>
               <li>• shadcn/ui with Radix components</li>
               <li>• React Hook Form with Zod validation</li>
             </ul>
