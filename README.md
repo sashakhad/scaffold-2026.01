@@ -1,6 +1,6 @@
 # Project Scaffold
 
-A ready-to-use template for building web applications. No coding experience required to get started!
+A clean, modern scaffold for full-stack web applications built with Next.js 16.1.1, React 19.2.3, TypeScript 5.9.3, Prisma 7.2.0, Tailwind CSS 4.1.18, and shadcn/ui.
 
 ---
 
@@ -47,11 +47,15 @@ Want to create a new project using this template?
 
 This scaffold comes with modern tools pre-configured:
 
-- **Next.js 15** - React framework for building web apps
-- **TypeScript** - Type-safe JavaScript
-- **Tailwind CSS** - Easy styling with utility classes
-- **Prisma** - Database toolkit (PostgreSQL)
-- **shadcn/ui** - Beautiful UI components
+- **Next.js 16.1.1** with App Router and Turbopack
+- **React 19.2.3** with latest features
+- **TypeScript 5.9.3** with strict configuration
+- **Prisma 7.2.0** with PostgreSQL for database management
+- **Tailwind CSS 4.1.18** for styling
+- **shadcn/ui** with Radix UI components
+- **React Hook Form** with Zod validation
+- **ESLint** with Next.js and TypeScript rules
+- **Prettier** for code formatting
 
 ---
 
@@ -103,9 +107,7 @@ prisma/
 ### Adding UI Components
 
 ```bash
-npx shadcn@latest add button
-npx shadcn@latest add card
-# See all: https://ui.shadcn.com/docs/components
+pnpm dlx shadcn@latest add [component-name]
 ```
 
 </details>

@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom';
+import React from 'react';
 
 // Mock Next.js navigation
 jest.mock('next/navigation', () => ({
@@ -17,10 +18,8 @@ jest.mock('next/navigation', () => ({
 // Mock Next.js image
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: (props: any) => {
-    // eslint-disable-next-line @next/next/no-img-element
-    return require('react').createElement('img', props);
-  },
+  default: (props: React.ImgHTMLAttributes<HTMLImageElement>) =>
+    React.createElement('img', props),
 }));
 
 // Mock Prisma
@@ -45,16 +44,16 @@ jest.mock('@/lib/prisma', () => ({
 
 // Global test utilities
 // Polyfill ResizeObserver
-// @ts-ignore
-global.ResizeObserver = class ResizeObserver {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(global as any).ResizeObserver = class ResizeObserver {
   observe() {}
   unobserve() {}
   disconnect() {}
 };
 
 // Polyfill matchMedia
-// @ts-ignore
-global.matchMedia = query => ({
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(global as any).matchMedia = (query: string) => ({
   matches: false,
   media: query,
   onchange: null,
