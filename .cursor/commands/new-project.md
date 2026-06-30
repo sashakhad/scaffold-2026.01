@@ -166,10 +166,25 @@ detail and rationale: [`docs/internalsphere.md`](../../docs/internalsphere.md).
 2.  **Wait for the orchestrator to bootstrap it** (~1–2 min). It seeds `app-manifest.yml`,
     `.sops.yaml`, `secrets/`, `.github/workflows/managed-app.yml`, Cursor skills, `QUICKSTART.md`,
     and a baseline `vercel.json`, then auto-merges its bootstrap PR to `main`. Poll until `main` has
-    the baseline:
+    the baseline marker file:
+
     ```bash
-    gh api repos/internalsphere/<project-name>/commits --jq '.[].commit.message' | head
+    for attempt in {1..24}; do
+      if gh api repos/internalsphere/<project-name>/contents/app-manifest.yml >/dev/null 2>&1; then
+        echo "internalsphere bootstrap is ready"
+        break
+      fi
+
+      if [ "$attempt" -eq 24 ]; then
+        echo "Timed out waiting for internalsphere bootstrap; ask in #proj-internalsphere"
+        exit 1
+      fi
+
+      echo "Waiting for internalsphere bootstrap..."
+      sleep 10
+    done
     ```
+
 3.  **Clone the bootstrapped repo** into the destination and run one-time setup:
     ```bash
     git clone https://github.com/internalsphere/<project-name>.git "<destination>/<project-name>"
