@@ -106,6 +106,9 @@ Create a fresh copy of this scaffold as a new project, with its own private GitH
    rmdir scripts 2>/dev/null || true
    ```
 
+   > **internalsphere flow:** `cd` to `<destination>/<project-name>-src` instead (the temporary path
+   > from step 5) and run the cleanup there.
+
    > **Keep** `vercel.json`, `docs/internalsphere.md`, and `.cursor/rules/internalsphere.mdc` — these
    > are real project files (not scaffold-maintenance files) and must carry over to the new project.
 
@@ -152,12 +155,23 @@ Create a fresh copy of this scaffold as a new project, with its own private GitH
       ```bash
       gh repo create internalsphere/<project-name> --private
       ```
+      - For internalsphere repo with team access (if a team slug was selected in step 4):
+        ```bash
+        gh repo create internalsphere/<project-name> --private --team <team-slug>
+        ```
    2. **Wait for the orchestrator to bootstrap it** (~1–2 min). It seeds `app-manifest.yml`,
       `.sops.yaml`, `secrets/`, `.github/workflows/managed-app.yml`, Cursor skills, `QUICKSTART.md`,
       and a baseline `vercel.json`, then auto-merges its bootstrap PR to `main`. Poll until `main` has
       the baseline:
       ```bash
-      gh api repos/internalsphere/<project-name>/commits --jq '.[].commit.message' | head
+      for i in {1..24}; do
+        if gh api repos/internalsphere/<project-name>/commits --jq '.[0].commit.message' 2>/dev/null | grep -q "orchestrator"; then
+          echo "Bootstrap complete!"
+          break
+        fi
+        echo "Waiting for bootstrap... ($i/24)"
+        sleep 5
+      done
       ```
    3. **Clone the bootstrapped repo** into the destination and run one-time setup:
       ```bash
