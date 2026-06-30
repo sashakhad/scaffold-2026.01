@@ -84,19 +84,21 @@ Create a fresh copy of this scaffold as a new project, with its own private GitH
 
 5. **Copy the scaffold** - Set a source path for the cleaned scaffold copy:
 
+   **Standard flow** (personal accounts and non-internalsphere orgs):
    ```bash
-   # Standard flow
    scaffold_source="<destination>/<project-name>"
-
-   # internalsphere flow
-   scaffold_source="<destination>/<project-name>-src"
-
    cp -r "$(pwd)" "$scaffold_source"
    ```
 
-   Use the standard value unless the chosen GitHub org is `internalsphere`. For internalsphere, the
-   final `<destination>/<project-name>` folder will be a clone of the orchestrator-managed repo
-   (created in step 9b), so the cleaned scaffold source must live at `<project-name>-src`.
+   **internalsphere flow** (when chosen GitHub org is `internalsphere`):
+   ```bash
+   scaffold_source="<destination>/<project-name>-src"
+   cp -r "$(pwd)" "$scaffold_source"
+   ```
+
+   For internalsphere, the final `<destination>/<project-name>` folder will be a clone of the
+   orchestrator-managed repo (created in step 9b), so the cleaned scaffold source must live at
+   `<project-name>-src`.
 
 6. **Clean up the new project**:
 
