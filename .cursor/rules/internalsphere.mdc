@@ -1,0 +1,46 @@
+---
+description: internalsphere app conventions — deploy via the orchestrator, pin the Next.js framework preset, never edit managed files
+alwaysApply: true
+---
+
+# internalsphere Apps
+
+This project may live on **internalsphere** (GitHub org `internalsphere` + Vercel team
+`anysphere-internal`), managed by the `internal-app-orchestrator` (the "ranger"). If so, follow these
+rules so you don't fight the control plane. Full reference: [`docs/internalsphere.md`](../../docs/internalsphere.md)
+(local, dated copy) and the canonical Notion guide:
+https://www.notion.so/cursorai/internalsphere-348da74ef0458184af80e67adbcef6b7
+
+## How to tell it's an internalsphere app
+
+- The git remote is under `github.com/internalsphere/...`, **and/or**
+- The repo contains orchestrator-managed files: `app-manifest.yml`, `.sops.yaml`, `secrets/`,
+  `QUICKSTART.md`, `.github/workflows/managed-app.yml`.
+
+If none of these are present, it's a normal project and this rule doesn't apply.
+
+## Non-negotiables
+
+- **Pin the framework.** `vercel.json` must include `"framework": "nextjs"`. Missing it = Framework
+  Preset "Other" = production 404 on a green build. On internalsphere, the orchestrator's `vercel.json`
+  ships `{"git": {"deploymentEnabled": false}}` — **add** `"framework": "nextjs"` to it; do not remove
+  the `git` key (that re-enables Vercel's git integration and causes double deploys).
+- **Deploy = push.** Open a PR → preview deploy; merge to `main` → production. Never run
+  `vercel deploy` / `vercel env pull` / `vercel dev` (everyone has Viewer access only).
+- **Don't add your own CI.** No `.github/workflows/ci.yml` — CI and deploys run through orchestrator
+  reusable workflows. A custom workflow fails the `ci-required` policy check.
+- **Commit `pnpm-lock.yaml`.** CI installs with `--frozen-lockfile`.
+- **Never edit managed files** (overwritten on reconcile): managed workflows, `CODEOWNERS`,
+  `.sops.yaml`, git hooks, `scripts/setup-repo.sh`, `scripts/secrets*.py`, `scripts/app-manifest.py`,
+  distributed skill files, `secrets/inventory.yaml`, `QUICKSTART.md`. App-specific toggles live in
+  `app-manifest.yml`.
+- **Secrets/env vars** go through `python3 scripts/secrets.py` (SOPS-encrypted in `secrets/`), never
+  plaintext `.env` or `vercel env add`.
+- **Integrations** (Supabase / Upstash KV / Blob) are declared in `app-manifest.yml` under
+  `integrations:`; the orchestrator provisions them.
+
+## Creating a new internalsphere app
+
+Do **not** push the scaffold on top of a fresh repo. Create an **empty** repo under `internalsphere`,
+let the orchestrator bootstrap it (auto-merged baseline PR), then add app code via a normal PR. The
+`/new-project` command handles this automatically when the chosen org is `internalsphere`.

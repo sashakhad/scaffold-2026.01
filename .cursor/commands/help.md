@@ -35,6 +35,7 @@ Display this information in a friendly, clear way:
 - Copies everything to a new folder
 - Lets you choose your personal GitHub account or an available organization
 - Creates a private GitHub repo and pushes the initial commit
+- **Auto-detects `internalsphere`**: if you pick that org, it uses the orchestrator flow (empty repo → bootstrap → app code via PR) so deploys "just work" — see `docs/internalsphere.md`
 - Guides you to open it in Cursor
 
 ### 🔄 `/update`

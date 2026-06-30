@@ -42,7 +42,24 @@ Want to create a new project using this template?
 5. Run `/setup` in the new project
 6. Run `/start` to launch it
 
-`/new-project` creates a local folder and private GitHub repo only. It does not deploy to Vercel.
+For a personal or standard org repo, `/new-project` creates a local folder and private GitHub repo
+only — it does not deploy to Vercel.
+
+---
+
+## 🏢 internalsphere Apps
+
+If you create the project under the **`internalsphere`** GitHub org, it's a managed app deployed by the
+`internal-app-orchestrator`. `/new-project` detects this automatically and uses the orchestrator flow
+(create an empty repo → let it bootstrap → add app code via a PR) instead of pushing the scaffold
+directly — so you don't collide with the baseline or hit the framework-preset 404.
+
+- **Local reference (dated):** [`docs/internalsphere.md`](docs/internalsphere.md)
+- **Canonical guide (Notion):** https://www.notion.so/cursorai/internalsphere-348da74ef0458184af80e67adbcef6b7
+- Key gotchas are also encoded in the always-on rule `.cursor/rules/internalsphere.mdc`.
+
+This scaffold ships a `vercel.json` with `"framework": "nextjs"` so the Next.js preset is correct by
+default — the one thing that 404'd our first internalsphere deploy.
 
 ---
 
