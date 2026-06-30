@@ -82,21 +82,26 @@ Create a fresh copy of this scaffold as a new project, with its own private GitH
      **internalsphere flow (step 9b)** and tell the user this is a managed app that deploys via the
      orchestrator. Otherwise use the **standard flow (step 9a)**.
 
-5. **Copy the scaffold** - Run this command:
+5. **Copy the scaffold** - Set a source path for the cleaned scaffold copy:
 
    ```bash
-   cp -r "$(pwd)" "<destination>/<project-name>"
+   # Standard flow
+   scaffold_source="<destination>/<project-name>"
+
+   # internalsphere flow
+   scaffold_source="<destination>/<project-name>-src"
+
+   cp -r "$(pwd)" "$scaffold_source"
    ```
 
-   > **internalsphere flow:** copy to a temporary source path instead — e.g.
-   > `cp -r "$(pwd)" "<destination>/<project-name>-src"` — because the final `<destination>/<project-name>`
-   > folder will be a clone of the orchestrator-managed repo (created in step 9b). Run the step 6/7
-   > cleanup + metadata edits inside that `-src` copy; you'll copy its app code into the clone in 9b.
+   Use the standard value unless the chosen GitHub org is `internalsphere`. For internalsphere, the
+   final `<destination>/<project-name>` folder will be a clone of the orchestrator-managed repo
+   (created in step 9b), so the cleaned scaffold source must live at `<project-name>-src`.
 
 6. **Clean up the new project**:
 
    ```bash
-   cd "<destination>/<project-name>"
+   cd "$scaffold_source"
    rm -f .cursor/commands/new-project.md
    rm -f .cursor/commands/update.md
    rm -f .cursor/commands/bump-scaffold.md
@@ -110,6 +115,7 @@ Create a fresh copy of this scaffold as a new project, with its own private GitH
    > are real project files (not scaffold-maintenance files) and must carry over to the new project.
 
 7. **Update copied scaffold metadata**:
+   - Make these edits inside `$scaffold_source`
    - Change the `"name"` field in `package.json` to the new project name
    - Remove the `"bump:scaffold"` script from `package.json`
    - Update `.cursor/commands/help.md` to remove `/new-project`, `/update`, and `/bump-scaffold` sections plus any scaffold-maintainer workflow text
@@ -126,71 +132,72 @@ Create a fresh copy of this scaffold as a new project, with its own private GitH
    ```
 
 9a. **Standard flow — create a private GitHub repo and push** (use this for personal accounts and any
-   org that is **not** `internalsphere`):
-   - For a personal repo:
-     ```bash
-     gh repo create <github-username>/<project-name> --private --source . --push
-     ```
-   - For an organization repo:
-     ```bash
-     gh repo create <org-login>/<project-name> --private --source . --push
-     ```
-   - For an organization repo with team access:
-     ```bash
-     gh repo create <org-login>/<project-name> --private --team <team-slug> --source . --push
-     ```
-   - This creates a private repo, sets it as `origin`, and pushes the initial commit
-   - If the repo name is already taken, append a suffix or ask the user for an alternative
-   - Do **not** run `vercel deploy` or create a Vercel project as part of `/new-project`
+org that is **not** `internalsphere`):
+
+- For a personal repo:
+  ```bash
+  gh repo create <github-username>/<project-name> --private --source . --push
+  ```
+- For an organization repo:
+  ```bash
+  gh repo create <org-login>/<project-name> --private --source . --push
+  ```
+- For an organization repo with team access:
+  ```bash
+  gh repo create <org-login>/<project-name> --private --team <team-slug> --source . --push
+  ```
+- This creates a private repo, sets it as `origin`, and pushes the initial commit
+- If the repo name is already taken, append a suffix or ask the user for an alternative
+- Do **not** run `vercel deploy` or create a Vercel project as part of `/new-project`
 
 9b. **internalsphere flow** (use this when the chosen org is **`internalsphere`**). The
-   `internal-app-orchestrator` owns Vercel, CI, branch protection, and the baseline files — so you
-   create an **empty** repo, let it bootstrap, and then add the scaffold's app code via a PR. Full
-   detail and rationale: [`docs/internalsphere.md`](../../docs/internalsphere.md).
+`internal-app-orchestrator` owns Vercel, CI, branch protection, and the baseline files — so you
+create an **empty** repo, let it bootstrap, and then add the scaffold's app code via a PR. Full
+detail and rationale: [`docs/internalsphere.md`](../../docs/internalsphere.md).
 
-   1. **Create an empty private repo** (no `--source`, no `--push`):
-      ```bash
-      gh repo create internalsphere/<project-name> --private
-      ```
-   2. **Wait for the orchestrator to bootstrap it** (~1–2 min). It seeds `app-manifest.yml`,
-      `.sops.yaml`, `secrets/`, `.github/workflows/managed-app.yml`, Cursor skills, `QUICKSTART.md`,
-      and a baseline `vercel.json`, then auto-merges its bootstrap PR to `main`. Poll until `main` has
-      the baseline:
-      ```bash
-      gh api repos/internalsphere/<project-name>/commits --jq '.[].commit.message' | head
-      ```
-   3. **Clone the bootstrapped repo** into the destination and run one-time setup:
-      ```bash
-      git clone https://github.com/internalsphere/<project-name>.git "<destination>/<project-name>"
-      cd "<destination>/<project-name>"
-      sh scripts/setup-repo.sh
-      ```
-   4. **Add the scaffold app code on a branch.** Copy the cleaned app code from the `-src` copy you made
-      in step 5 into the clone — `src/`, `public/`, `prisma/`, and root config like `package.json`,
-      `tsconfig*.json`, `next.config.ts`, `eslint.config.mjs`, `postcss.config.mjs`,
-      `tailwind.config.ts`, `components.json`, `.cursor/rules/` (incl. `internalsphere.mdc`),
-      `.cursor/commands/`, and `docs/`. **Do NOT copy or overwrite orchestrator-managed files**: any
-      `.github/workflows/*`, `CODEOWNERS`, `.sops.yaml`, `secrets/`, git hooks, `scripts/`,
-      `QUICKSTART.md`. **Do NOT add a `.github/workflows/ci.yml`** (it fails the `ci-required` policy
-      check). Delete the `-src` copy when done.
-   5. **Merge `framework: nextjs` into the orchestrator's `vercel.json`** (don't overwrite it — keep
-      its `git.deploymentEnabled: false`). The result should be:
-      ```json
-      { "framework": "nextjs", "git": { "deploymentEnabled": false } }
-      ```
-   6. **Install to generate the lockfile, then commit and open a PR:**
-      ```bash
-      pnpm install
-      git checkout -b add-app-code
-      git add -A
-      git commit -m "Add app scaffold"
-      git push -u origin add-app-code
-      gh pr create --base main --fill
-      ```
-   7. **Merge when green.** The `internalsphere-ranger` bot posts the preview URL on the PR; merging to
-      `main` triggers the production deploy. Do **not** run `vercel deploy` yourself.
+1.  **Create an empty private repo** (no `--source`, no `--push`):
+    ```bash
+    gh repo create internalsphere/<project-name> --private
+    ```
+2.  **Wait for the orchestrator to bootstrap it** (~1–2 min). It seeds `app-manifest.yml`,
+    `.sops.yaml`, `secrets/`, `.github/workflows/managed-app.yml`, Cursor skills, `QUICKSTART.md`,
+    and a baseline `vercel.json`, then auto-merges its bootstrap PR to `main`. Poll until `main` has
+    the baseline:
+    ```bash
+    gh api repos/internalsphere/<project-name>/commits --jq '.[].commit.message' | head
+    ```
+3.  **Clone the bootstrapped repo** into the destination and run one-time setup:
+    ```bash
+    git clone https://github.com/internalsphere/<project-name>.git "<destination>/<project-name>"
+    cd "<destination>/<project-name>"
+    sh scripts/setup-repo.sh
+    ```
+4.  **Add the scaffold app code on a branch.** Copy the cleaned app code from the `-src` copy you made
+    in step 5 into the clone — `src/`, `public/`, `prisma/`, and root config like `package.json`,
+    `tsconfig*.json`, `next.config.ts`, `eslint.config.mjs`, `postcss.config.mjs`,
+    `tailwind.config.ts`, `components.json`, `.cursor/rules/` (incl. `internalsphere.mdc`),
+    `.cursor/commands/`, and `docs/`. **Do NOT copy or overwrite orchestrator-managed files**: any
+    `.github/workflows/*`, `CODEOWNERS`, `.sops.yaml`, `secrets/`, git hooks, `scripts/`,
+    `QUICKSTART.md`. **Do NOT add a `.github/workflows/ci.yml`** (it fails the `ci-required` policy
+    check). Delete the `-src` copy when done.
+5.  **Merge `framework: nextjs` into the orchestrator's `vercel.json`** (don't overwrite it — keep
+    its `git.deploymentEnabled: false`). The result should be:
+    ```json
+    { "framework": "nextjs", "git": { "deploymentEnabled": false } }
+    ```
+6.  **Install to generate the lockfile, then commit and open a PR:**
+    ```bash
+    pnpm install
+    git checkout -b add-app-code
+    git add -A
+    git commit -m "Add app scaffold"
+    git push -u origin add-app-code
+    gh pr create --base main --fill
+    ```
+7.  **Merge when green.** The `internalsphere-ranger` bot posts the preview URL on the PR; merging to
+    `main` triggers the production deploy. Do **not** run `vercel deploy` yourself.
 
-10. **Display success message**:
+8.  **Display success message**:
 
 For a personal repo, use:
 
