@@ -159,6 +159,10 @@ detail and rationale: [`docs/internalsphere.md`](../../docs/internalsphere.md).
     ```bash
     gh repo create internalsphere/<project-name> --private
     ```
+    If the user selected a GitHub team in step 4, grant that team access when creating the repo:
+    ```bash
+    gh repo create internalsphere/<project-name> --private --team <team-slug>
+    ```
 2.  **Wait for the orchestrator to bootstrap it** (~1–2 min). It seeds `app-manifest.yml`,
     `.sops.yaml`, `secrets/`, `.github/workflows/managed-app.yml`, Cursor skills, `QUICKSTART.md`,
     and a baseline `vercel.json`, then auto-merges its bootstrap PR to `main`. Poll until `main` has
