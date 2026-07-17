@@ -2,7 +2,7 @@ import { ExampleForm } from '@/components/ExampleForm';
 
 export default function Home() {
   return (
-    <main className='min-h-screen p-8 font-[family-name:var(--font-geist-sans)]'>
+    <main className='min-h-screen p-8'>
       <div className='mx-auto max-w-4xl space-y-12'>
         <header className='space-y-4 text-center'>
           <h1 className='text-4xl font-bold'>Modern Full-Stack Scaffold</h1>
@@ -27,9 +27,9 @@ export default function Home() {
             <h2 className='text-2xl font-semibold'>Development Tooling</h2>
             <ul className='text-muted-foreground list-disc space-y-2 pl-5'>
               <li>ESLint and Prettier for code quality</li>
-              <li>Jest and Testing Library for unit tests</li>
+              <li>Vitest and Testing Library for unit tests</li>
               <li>Cypress for end-to-end smoke tests</li>
-              <li>Storybook with Vitest integration</li>
+              <li>Storybook with Vitest browser tests</li>
               <li>Prisma Studio for database management</li>
             </ul>
           </div>

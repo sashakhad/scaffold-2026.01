@@ -1,17 +1,22 @@
 // For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
-import { fixupConfigRules } from '@eslint/compat';
 import storybook from 'eslint-plugin-storybook';
-import nextConfig from 'eslint-config-next';
 import coreWebVitals from 'eslint-config-next/core-web-vitals';
-import typescript from 'eslint-config-next/typescript';
+import eslintConfigPrettier from 'eslint-config-prettier';
 
-// fixupConfigRules shims deprecated context methods (getFilename, getSourceCode, etc.)
-// for plugins that haven't migrated to ESLint 10's new API yet.
-// Remove once eslint-plugin-react, typescript-eslint, etc. release ESLint 10 support.
 const eslintConfig = [
-  ...fixupConfigRules([...nextConfig, ...coreWebVitals, ...typescript]),
+  ...coreWebVitals,
   {
-    ignores: ['node_modules/**', '.next/**', 'dist/**', 'out/**', 'coverage/**', 'next-env.d.ts'],
+    ignores: [
+      'node_modules/**',
+      '.next/**',
+      'dist/**',
+      'out/**',
+      'coverage/**',
+      'storybook-static/**',
+      'src/generated/**',
+      'next-env.d.ts',
+      'cypress/**',
+    ],
   },
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
@@ -22,7 +27,7 @@ const eslintConfig = [
       'no-var': 'error',
       'object-shorthand': 'error',
       'prefer-template': 'error',
-      'prefer-arrow-callback': 'error',
+      'prefer-arrow-callback': 'off',
       'no-console': ['warn', { allow: ['warn', 'error'] }],
       'no-debugger': 'error',
       eqeqeq: ['error', 'always'],
@@ -35,18 +40,19 @@ const eslintConfig = [
   },
   {
     files: [
-      '*.config.{js,cjs,mjs}',
-      'jest.config.js',
+      '*.config.{js,cjs,mjs,ts}',
       'postcss.config.mjs',
       'next.config.ts',
       'vitest.config.ts',
       'cypress.config.ts',
+      'prisma.config.ts',
     ],
     rules: {
       '@typescript-eslint/no-require-imports': 'off',
     },
   },
   ...storybook.configs['flat/recommended'],
+  eslintConfigPrettier,
 ];
 
 export default eslintConfig;

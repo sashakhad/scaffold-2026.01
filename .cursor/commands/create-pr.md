@@ -5,23 +5,29 @@ You are a GitHub Pull Request assistant that helps create well-structured PRs us
 ## Task
 
 1. First, check if gh CLI is installed and the user is authenticated:
+
    ```bash
    gh auth status
    ```
+
    If not authenticated, instruct them to run `gh auth login`
 
 2. Get the current branch name and verify it's not `main` or `master`:
+
    ```bash
    git branch --show-current
    ```
+
    If on main/master, tell the user they cannot create a PR from these branches
 
 3. Push the current branch to remote:
+
    ```bash
    git push -u origin <current-branch>
    ```
 
 4. Check if a PR already exists for this branch:
+
    ```bash
    gh pr list --head <current-branch> --json number,title,url
    ```
@@ -37,11 +43,13 @@ You are a GitHub Pull Request assistant that helps create well-structured PRs us
 6. Show the user a preview of the PR details before creating
 
 7. **If no PR exists**, create the PR using the GitHub CLI:
+
    ```bash
    gh pr create --title "<title>" --body "<description>" --base <base-branch> [--draft]
    ```
 
 8. **If PR already exists**, update it:
+
    ```bash
    gh pr edit <pr-number> --title "<title>" --body "<description>" [--draft]
    ```
@@ -50,6 +58,7 @@ You are a GitHub Pull Request assistant that helps create well-structured PRs us
    - Keep existing base branch unless explicitly changed
 
 9. After creating or updating the PR, post a review request comment:
+
    ```bash
    gh pr comment <pr-number> --body "@bugbot review"
    ```
@@ -57,9 +66,10 @@ You are a GitHub Pull Request assistant that helps create well-structured PRs us
    - If the PR already existed, use the number from step 4
 
 10. Show the PR URL and ask if they want to open it in the browser:
-   ```bash
-   gh pr view --web
-   ```
+
+```bash
+gh pr view --web
+```
 
 ## PR Title Best Practices
 
@@ -74,6 +84,7 @@ You are a GitHub Pull Request assistant that helps create well-structured PRs us
 ## PR Description Template
 
 Include:
+
 - **What**: Brief description of changes
 - **Why**: Motivation and context
 - **How**: High-level approach (if complex)

@@ -19,7 +19,7 @@ Create a fresh copy of this scaffold as a new project, with its own private GitH
 
    ***
 
-   ## 🆕 Let's create your new project!
+   ## Let's create your new project!
 
    **What would you like to name your project?**
 
@@ -77,7 +77,7 @@ Create a fresh copy of this scaffold as a new project, with its own private GitH
    cp -r "$(pwd)" "<destination>/<project-name>"
    ```
 
-6. **Clean up the new project**:
+6. **Clean up the new project** (keep `pnpm-lock.yaml` for reproducible installs):
 
    ```bash
    cd "<destination>/<project-name>"
@@ -85,10 +85,12 @@ Create a fresh copy of this scaffold as a new project, with its own private GitH
    rm -f .cursor/commands/update.md
    rm -f .cursor/commands/bump-scaffold.md
    rm -f .cursor/rules/scaffold-protection.mdc
-   rm -rf node_modules .git pnpm-lock.yaml package-lock.json
+   rm -rf node_modules .git package-lock.json
    rm -f scripts/bump-scaffold.sh
    rmdir scripts 2>/dev/null || true
    ```
+
+   **Do not delete `pnpm-lock.yaml`.** Derived projects should install from the same lockfile the scaffold ships.
 
 7. **Update copied scaffold metadata**:
    - Change the `"name"` field in `package.json` to the new project name
@@ -138,12 +140,12 @@ https://github.com/<org-login>/<project-name>
 
 ---
 
-## ✅ Your new project "{project-name}" is ready!
+## Your new project "{project-name}" is ready!
 
 **Project location:** `<full-path-to-new-project>`
 **GitHub repo:** `<github-repo-url>`
 
-### 👉 Next Steps
+### Next Steps
 
 1.  **Open your new project in Cursor:**
     - Press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows)
@@ -167,6 +169,7 @@ https://github.com/<org-login>/<project-name>
 - Make sure to use the exact name the user provides (after validation/conversion)
 - The GitHub repo is always created as **private** by default
 - Always ask whether the repo should be created under the personal GitHub account or an accessible organization
+- Always keep `pnpm-lock.yaml` when copying the scaffold
 - Make it very clear that the user must open the new project folder in Cursor after creation
 - Do not deploy to Vercel from this command
 

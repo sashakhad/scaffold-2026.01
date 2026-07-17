@@ -4,7 +4,7 @@ A clean, modern scaffold for full-stack web applications built with Next.js App 
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 This project uses **Cursor commands** to make everything easy. Just type these commands in the Cursor chat:
 
@@ -16,7 +16,12 @@ This project uses **Cursor commands** to make everything easy. Just type these c
 
 ---
 
-## 📋 Getting Started
+## Getting Started
+
+### Prerequisites
+
+- **Node.js 24 LTS** (see `.nvmrc` / `.node-version`)
+- **pnpm 11** via Corepack (`corepack enable`)
 
 ### First Time Setup
 
@@ -27,11 +32,21 @@ This project uses **Cursor commands** to make everything easy. Just type these c
 5. Type `/start` to launch your app
 6. Open http://localhost:3000 in your browser
 
-**That's it!** You should see your app running.
+**That's it for the demo UI.** Postgres is optional until you need the database.
+
+### Optional database
+
+```bash
+cp .env.example .env
+pnpm run db:up        # local Postgres via Docker
+pnpm run db:migrate   # apply the initial schema
+```
+
+Or paste a hosted `DATABASE_URL` into `.env` and run `pnpm run db:migrate`.
 
 ---
 
-## 🆕 Starting a New Project
+## Starting a New Project
 
 Want to create a new project using this template?
 
@@ -46,24 +61,24 @@ Want to create a new project using this template?
 
 ---
 
-## 📁 What's Included
+## What's Included
 
 This scaffold comes with modern tools pre-configured:
 
 - **Next.js** with App Router and Turbopack
 - **React** with strict TypeScript configuration
-- **Prisma** with a PostgreSQL adapter
+- **Prisma** with a PostgreSQL adapter (optional until you need a DB)
 - **Tailwind CSS** for styling
 - **shadcn/ui** with Radix UI components
 - **React Hook Form** with Zod validation
-- **Jest** and Testing Library for component tests
+- **Vitest** and Testing Library for unit/component tests
+- **Storybook** with Vitest browser + accessibility tests
 - **Cypress** for end-to-end smoke tests
-- **Storybook** with Vitest integration
 - **ESLint** and **Prettier** for code quality
 
 ---
 
-## 🛠 For Developers
+## For Developers
 
 <details>
 <summary>Click to expand developer documentation</summary>
@@ -73,8 +88,15 @@ This scaffold comes with modern tools pre-configured:
 If you prefer using the terminal directly:
 
 ```bash
+# Enable package manager
+corepack enable
+corepack prepare pnpm@11.13.1 --activate
+
 # Install dependencies
 pnpm install
+
+# Aggregate quality checks
+pnpm run check
 
 # Start development server
 pnpm run dev
@@ -82,10 +104,13 @@ pnpm run dev
 # Build for production
 pnpm run build
 
-# Run tests
-pnpm run test
+# Unit tests (Vitest)
+pnpm test
 
-# Run end-to-end smoke tests
+# Storybook browser tests
+pnpm run test:storybook
+
+# End-to-end smoke tests (builds + starts the app; installs Cypress binary on demand)
 pnpm run test:e2e
 
 # Start Storybook
@@ -95,8 +120,11 @@ pnpm run storybook
 pnpm run type-check
 
 # Database commands
+pnpm run db:up          # start local Postgres (Docker)
+pnpm run db:down        # stop local Postgres
 pnpm run db:generate    # Generate Prisma client
-pnpm run db:push        # Push schema changes
+pnpm run db:migrate     # Run migrations
+pnpm run db:push        # Push schema without migrations
 pnpm run db:studio      # Open database UI
 ```
 
@@ -108,10 +136,11 @@ src/
 ├── components/          # Reusable UI components
 │   └── ui/             # shadcn/ui components
 ├── lib/                # Utility functions
-└── types/              # TypeScript types
+└── stories/            # Storybook stories
 
 prisma/
-└── schema.prisma       # Database schema
+├── schema.prisma       # Database schema
+└── migrations/         # SQL migrations
 
 .cursor/
 └── commands/           # Cursor slash commands
@@ -127,7 +156,7 @@ pnpm dlx shadcn@latest add [component-name]
 
 ---
 
-## ❓ Need Help?
+## Need Help?
 
 - Type your question in the Cursor chat - the AI can help!
 - Check the [Next.js docs](https://nextjs.org/docs)
