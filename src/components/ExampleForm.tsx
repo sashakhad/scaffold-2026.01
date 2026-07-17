@@ -51,7 +51,7 @@ export function ExampleForm() {
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
+        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4' noValidate>
           <FormField
             control={form.control}
             name='email'
@@ -59,7 +59,12 @@ export function ExampleForm() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder='Enter your email' {...field} />
+                  <Input
+                    type='email'
+                    autoComplete='email'
+                    placeholder='Enter your email'
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -73,7 +78,12 @@ export function ExampleForm() {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input type='password' placeholder='Enter your password' {...field} />
+                  <Input
+                    type='password'
+                    autoComplete='new-password'
+                    placeholder='Enter your password'
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -87,7 +97,12 @@ export function ExampleForm() {
               <FormItem>
                 <FormLabel>Confirm Password</FormLabel>
                 <FormControl>
-                  <Input type='password' placeholder='Confirm your password' {...field} />
+                  <Input
+                    type='password'
+                    autoComplete='new-password'
+                    placeholder='Confirm your password'
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
