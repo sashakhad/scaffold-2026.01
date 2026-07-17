@@ -8,36 +8,38 @@ Display this information in a friendly, clear way:
 
 ---
 
-## 👋 Welcome! Here are the commands you can use:
+## Welcome! Here are the commands you can use:
 
-### 🚀 `/setup`
+### `/setup`
 
 **Run this first!** Installs everything your project needs to work.
 
-- Installs the package manager (pnpm) if needed
-- Downloads all project dependencies
-- Creates configuration files
+- Enables pnpm via Corepack
+- Downloads all project dependencies from the lockfile
+- Creates `.env` from `.env.example`
+- Optionally sets up Postgres (Docker or hosted URL)
 - Takes about 1-2 minutes
 
-### ▶️ `/start`
+### `/start`
 
 **Launches your app** so you can see it in the browser.
 
 - Starts the development server
 - Open http://localhost:3000 to see your app
 - Changes you make will auto-refresh!
+- Database is optional for the demo UI
 
-### 🆕 `/new-project`
+### `/new-project`
 
 **Creates a fresh copy** of this template for a new project.
 
 - Prompts you to name your new project
-- Copies everything to a new folder
+- Copies everything to a new folder (keeps `pnpm-lock.yaml`)
 - Lets you choose your personal GitHub account or an available organization
 - Creates a private GitHub repo and pushes the initial commit
 - Guides you to open it in Cursor
 
-### 🔄 `/update`
+### `/update`
 
 **Gets the latest scaffold updates** from the main repository.
 
@@ -45,7 +47,7 @@ Display this information in a friendly, clear way:
 - Warns you if you have uncommitted changes
 - Only works in the scaffold template (not derived projects)
 
-### 📦 `/bump-scaffold`
+### `/bump-scaffold`
 
 **Maintainer command** to roll the scaffold forward to the next monthly version.
 
@@ -53,13 +55,13 @@ Display this information in a friendly, clear way:
 - Can rename the GitHub repo and local folder
 - Can stop at the PR or wait and merge after CI
 
-### ❓ `/help`
+### `/help`
 
 **You're here!** Shows this list of commands.
 
 ---
 
-## 💡 Suggested Workflow
+## Suggested Workflow
 
 **First time?** Do this:
 
