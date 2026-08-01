@@ -36,7 +36,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@hookform/resolvers": "5.4.0",
+    "@hookform/resolvers": "5.5.7",
     "@prisma/adapter-pg": "7.8.0",
     "@prisma/client": "7.8.0",
     "class-variance-authority": "0.7.1",
